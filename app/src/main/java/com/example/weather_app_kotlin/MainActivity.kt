@@ -2,6 +2,9 @@ package com.example.weather_app_kotlin
 
 import android.os.Bundle
 import android.view.Menu
+import android.animation.ObjectAnimator
+import android.widget.ImageView
+
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
@@ -15,8 +18,8 @@ import com.example.weather_app_kotlin.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: ActivityMainBinding
+    private lateinit var appBarConfiguration: AppBarConfiguration
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,6 +28,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setSupportActionBar(binding.appBarMain.toolbar)
+
+        val secondHand = findViewById<ImageView>(R.id.secondHand)
+        val rotationAnimator = ObjectAnimator.ofFloat(secondHand, "rotation", 0f, 360f)
+        rotationAnimator.duration = 60000L  // 60 seconds
+        rotationAnimator.repeatCount = ObjectAnimator.INFINITE
+        rotationAnimator.start()
 
         binding.appBarMain.fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
